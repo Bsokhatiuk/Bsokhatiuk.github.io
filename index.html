@@ -103,14 +103,14 @@
 	if (name.length < 5){
 		document.getElementById("error").innerText = "Ошибка в имени";
 		return;
-	};
+	}
 	let data = {
-	name: name,
-	email: email,
-	phone: phone,
-	job: job,
-	password: password
-	};
+        name: name,
+        email: email,
+        phone: phone,
+        job: job,
+        password: password
+	}
 	tg.sendData(JSON.stringify(data))
 	tg.close();
 	});
