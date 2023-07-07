@@ -39,7 +39,7 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
 		 </div>
-        <input name="" class="form-control" placeholder="Email address" type="email">
+        <input name="" class="form-control" placeholder="Email address" type="email" id="email">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
@@ -48,13 +48,13 @@
 		<select class="custom-select" style="max-width: 120px;">
 		    <option selected="">+380</option>
 		</select>
-    	<input name="" class="form-control" placeholder="Phone number" type="text">
+    	<input name="" class="form-control" placeholder="Phone number" type="text" id="phone">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
 		</div>
-		<select class="form-control">
+		<select class="form-control" id="job">
 			<option selected=""> Select job type</option>
 			<option>Designer</option>
 			<option>Manager</option>
@@ -65,14 +65,15 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input class="form-control" placeholder="Create password" type="password">
+        <input class="form-control" placeholder="Create password" type="password" id="password">
     </div> <!-- form-group// -->
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
 		</div>
-        <input class="form-control" placeholder="Repeat password" type="password">
+        <input class="form-control" placeholder="Repeat password" type="password" id="repeatpassword">
     </div> <!-- form-group// -->
+	<div id="error"></div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-block" id="submit"> Create Account  </button>
     </div> <!-- form-group// -->
@@ -92,9 +93,29 @@
 	window.onload = function() {
  	document.getElementById("name").value = tg.initDataUnsafe.user.first_name + " " + tg.initDataUnsafe.user.last_name;
 	};
+	tg.expand();
 
 	submit.addEventListener("click", () => {
-	tg.close()
+	document.getElementById("error").innerText = '';
+	let name = document.getElementById("name").value;
+	let email = document.getElementById("email").value;
+	let phone = document.getElementById("phone").value;
+	let job = document.getElementById("job").value;
+	let password = document.getElementById("password").value;
+	let repeatpassword = document.getElementById("repeatpassword").value;
+	if (name.length < 5){
+		document.getElementById("error").innerText = "Ошибка в имени";
+		return;
+	}
+	let data = {
+	name: name,
+	email: email,
+	phone: phone,
+	job: job,
+	password: password
+	}
+	tg.sendData(JSON.stringify(data))
+	tg.close();
 	});
 	</script>
 </body>
